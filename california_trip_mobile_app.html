@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>California Road Trip Planner</title>
+  <style>
+    :root {
+      --bg: #f7f7f4;
+      --card: #ffffff;
+      --text: #1f2933;
+      --muted: #637083;
+      --accent: #1769aa;
+      --accent2: #2e7d32;
+      --border: #e2e8f0;
+      --chip: #eef6ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: linear-gradient(135deg, #0f4c81, #1f7a8c);
+      color: white;
+      padding: 18px 16px 14px;
+      box-shadow: 0 3px 16px rgba(0,0,0,.16);
+    }
+    header h1 { margin: 0; font-size: 1.35rem; }
+    header p { margin: 4px 0 0; opacity: .92; font-size: .9rem; }
+    main { padding: 14px; max-width: 860px; margin: auto; }
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 0 12px;
+    }
+    .toolbar a {
+      flex: 0 0 auto;
+      text-decoration: none;
+      background: var(--card);
+      color: var(--accent);
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: .86rem;
+    }
+    .summary {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .card, details {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 1px 5px rgba(0,0,0,.04);
+    }
+    .card { padding: 14px; }
+    .card h2 { margin: 0 0 8px; font-size: 1.05rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+    .chip {
+      background: var(--chip);
+      color: #114e7a;
+      border-radius: 999px;
+      padding: 6px 9px;
+      font-size: .82rem;
+      font-weight: 600;
+    }
+    details { margin-bottom: 12px; overflow: hidden; }
+    summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 15px 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      background: #fff;
+    }
+    summary::-webkit-details-marker { display: none; }
+    .day-title { font-size: 1.02rem; font-weight: 800; }
+    .overnight { color: var(--muted); font-size: .84rem; margin-top: 2px; }
+    .badge { background: #e9f7ef; color: #216b35; padding: 5px 8px; border-radius: 999px; font-size: .76rem; font-weight: 700; white-space: nowrap; }
+    .content { padding: 0 14px 14px; border-top: 1px solid var(--border); }
+    .route { margin: 12px 0; color: var(--muted); font-size: .92rem; }
+    .stop {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 8px;
+      padding: 10px 0;
+      border-bottom: 1px dashed #e5e7eb;
+    }
+    .stop:last-child { border-bottom: none; }
+    .num {
+      width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: #fff;
+      display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 800;
+    }
+    .stop h3 { margin: 1px 0 3px; font-size: .98rem; }
+    .stop p { margin: 0; color: var(--muted); font-size: .88rem; }
+    a.map { color: var(--accent); text-decoration: none; font-weight: 700; }
+    .note { margin-top: 10px; padding: 10px; background: #fff7ed; border-left: 4px solid #f59e0b; border-radius: 10px; color: #6b4e16; font-size: .88rem; }
+    footer { padding: 24px 16px 34px; color: var(--muted); text-align: center; font-size: .82rem; }
+    @media (min-width: 700px) { .summary { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>California Road Trip Planner</h1>
+    <p>June 27 – July 4, 2026 · DFW → Sacramento → SFO → DFW</p>
+  </header>
+  <main>
+    <nav class="toolbar">
+      <a href="#d1">Jun 27</a><a href="#d2">Jun 28</a><a href="#d3">Jun 29</a><a href="#d4">Jun 30</a><a href="#d5">Jul 1</a><a href="#d6">Jul 2</a><a href="#d7">Jul 3</a><a href="#d8">Jul 4</a>
+    </nav>
+
+    <section class="summary">
+      <div class="card">
+        <h2>Hotel Plan</h2>
+        <div class="chips">
+          <span class="chip">Jun 27 Sacramento</span><span class="chip">Jun 28 Carson City</span><span class="chip">Jun 29–30 Mariposa</span><span class="chip">Jul 1 Visalia</span><span class="chip">Jul 2 Seaside</span><span class="chip">Jul 3 San Francisco</span>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Signature Highlights</h2>
+        <div class="chips">
+          <span class="chip">Lake Tahoe</span><span class="chip">Yosemite</span><span class="chip">Sequoia</span><span class="chip">Big Sur</span><span class="chip">Golden Gate</span><span class="chip">Stanford</span><span class="chip">Apple Park</span><span class="chip">Google</span>
+        </div>
+      </div>
+    </section>
+
+    <details id="d1" open>
+      <summary><div><div class="day-title">Jun 27 · Sacramento Arrival</div><div class="overnight">Overnight: Sacramento</div></div><span class="badge">City Day</span></summary>
+      <div class="content"><div class="route">DFW → Sacramento · Arrive 10:10 AM</div>
+        <div class="stop"><div class="num">1</div><div><h3>California State Capitol</h3><p><a class="map" href="https://www.google.com/maps/search/?api=1&query=California+State+Capitol+Sacramento" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">2</div><div><h3>Old Sacramento Waterfront</h3><p>Historic district, riverfront walk, shops. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Old+Sacramento+Waterfront" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">3</div><div><h3>Tower Bridge + Midtown</h3><p>Evening walk and dinner. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Tower+Bridge+Sacramento" target="_blank">Open map</a></p></div></div>
+      </div>
+    </details>
+
+    <details id="d2">
+      <summary><div><div class="day-title">Jun 28 · Lake Tahoe West Shore</div><div class="overnight">Overnight: Carson City, NV</div></div><span class="badge">Lake Day</span></summary>
+      <div class="content"><div class="route">Sacramento → Eagle Rock → Emerald Bay → Logan Shoals → Carson City</div>
+        <div class="stop"><div class="num">1</div><div><h3>Eagle Rock Trail</h3><p>Short hike, panoramic lake view. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Eagle+Rock+Trail+Lake+Tahoe" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">2</div><div><h3>Sugar Pine Point State Park</h3><p>Beautiful shoreline and forest stop. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Sugar+Pine+Point+State+Park" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">3</div><div><h3>Emerald Bay Area</h3><p>Inspiration Point, Emerald Bay Vista, Lower Eagle Falls. Optional: Vikingsholm. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Inspiration+Point+Emerald+Bay+Lake+Tahoe" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">4</div><div><h3>Logan Shoals Vista Point</h3><p>Best sunset viewpoint. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Logan+Shoals+Vista+Point" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">5</div><div><h3>Dinner: Gar Woods Grill & Pier</h3><p>Lakefront dinner option. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Gar+Woods+Grill+and+Pier" target="_blank">Open map</a></p></div></div>
+      </div>
+    </details>
+
+    <details id="d3">
+      <summary><div><div class="day-title">Jun 29 · Sand Harbor, 395 & Tioga Road</div><div class="overnight">Overnight: Mariposa</div></div><span class="badge">Scenic Drive</span></summary>
+      <div class="content"><div class="route">Carson City → Sand Harbor → Mono Lake → Tioga Pass → Mariposa</div>
+        <div class="stop"><div class="num">1</div><div><h3>Sand Harbor State Park</h3><p>Arrive early; 1–1.5 hrs. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Sand+Harbor+State+Park" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">2</div><div><h3>Mono Lake Tufa State Natural Reserve</h3><p>Unique landscape and photo stop. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Mono+Lake+Tufa+State+Natural+Reserve" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">3</div><div><h3>Tioga Road Stops</h3><p>Ellery Lake, Tioga Lake, Tuolumne Meadows, Tenaya Lake, Olmsted Point.</p></div></div>
+        <div class="stop"><div class="num">4</div><div><h3>Dinner: Two Guys Pizza Pies</h3><p>Mariposa dinner. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Two+Guys+Pizza+Pies+Mariposa" target="_blank">Open map</a></p></div></div>
+        <div class="note">Check Tioga Pass road status before the trip.</div>
+      </div>
+    </details>
+
+    <details id="d4">
+      <summary><div><div class="day-title">Jun 30 · Yosemite Valley</div><div class="overnight">Overnight: Mariposa</div></div><span class="badge">Hiking Day</span></summary>
+      <div class="content"><div class="route">Mariposa → Yosemite Valley → Mariposa</div>
+        <div class="stop"><div class="num">1</div><div><h3>Tunnel View</h3><p>Iconic Yosemite panorama. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Tunnel+View+Yosemite" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">2</div><div><h3>Bridalveil Fall + Cook's Meadow</h3><p>Classic valley views.</p></div></div>
+        <div class="stop"><div class="num">3</div><div><h3>Yosemite Falls</h3><p>Short walk and photo stop. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Yosemite+Falls" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">4</div><div><h3>Vernal Fall Hike</h3><p>Mist Trail to footbridge or top of Vernal Fall depending on energy. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Vernal+Fall+Yosemite" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">5</div><div><h3>El Capitan Meadow / Sentinel Bridge</h3><p>Relaxed afternoon viewpoints.</p></div></div>
+      </div>
+    </details>
+
+    <details id="d5">
+      <summary><div><div class="day-title">Jul 1 · Kings Canyon & Sequoia</div><div class="overnight">Overnight: Visalia</div></div><span class="badge">Sequoias</span></summary>
+      <div class="content"><div class="route">Mariposa → Grant Grove → Sequoia → Three Rivers → Visalia</div>
+        <div class="stop"><div class="num">1</div><div><h3>Grant Grove + General Grant Tree</h3><p>Kings Canyon signature sequoia stop. <a class="map" href="https://www.google.com/maps/search/?api=1&query=General+Grant+Tree+Kings+Canyon" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">2</div><div><h3>Lunch Placeholder</h3><p>Picnic or Grant Grove area.</p></div></div>
+        <div class="stop"><div class="num">3</div><div><h3>General Sherman Tree</h3><p>Highest priority Sequoia stop. <a class="map" href="https://www.google.com/maps/search/?api=1&query=General+Sherman+Tree" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">4</div><div><h3>Moro Rock + Tunnel Log</h3><p>Short climb for views; quick Tunnel Log photo. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Moro+Rock+Sequoia" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">5</div><div><h3>Three Rivers</h3><p>Evening break before Visalia. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Three+Rivers+California" target="_blank">Open map</a></p></div></div>
+      </div>
+    </details>
+
+    <details id="d6">
+      <summary><div><div class="day-title">Jul 2 · Big Sur South → North</div><div class="overnight">Overnight: Seaside</div></div><span class="badge">Coast</span></summary>
+      <div class="content"><div class="route">Visalia → Paso Robles → Cambria → Big Sur → Carmel → Monterey → Seaside</div>
+        <div class="stop"><div class="num">1</div><div><h3>Lunch: Rustic Fire, Paso Robles</h3><p>Alternative: Odyssey World Cafe. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Rustic+Fire+Paso+Robles" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">2</div><div><h3>Ragged Point</h3><p>First dramatic coast views. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Ragged+Point+California" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">3</div><div><h3>McWay Falls + Julia Pfeiffer Burns</h3><p>Iconic Big Sur viewpoint. <a class="map" href="https://www.google.com/maps/search/?api=1&query=McWay+Falls" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">4</div><div><h3>Pfeiffer Beach</h3><p>Keyhole Rock and purple sand. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Pfeiffer+Beach+Big+Sur" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">5</div><div><h3>Bixby Bridge + Carmel + Cannery Row</h3><p>Evening finish around Monterey/Seaside.</p></div></div>
+        <div class="note">Before July 2, verify Highway 1 is open between Ragged Point and Big Sur.</div>
+      </div>
+    </details>
+
+    <details id="d7">
+      <summary><div><div class="day-title">Jul 3 · Monterey, Santa Cruz & Golden Gate</div><div class="overnight">Overnight: San Francisco</div></div><span class="badge">Bay Arrival</span></summary>
+      <div class="content"><div class="route">Seaside → 17-Mile Drive → Santa Cruz → Big Basin → Battery Spencer → Sausalito → SF</div>
+        <div class="stop"><div class="num">1</div><div><h3>Lovers Point + 17-Mile Drive</h3><p>Lone Cypress, Bird Rock, Pebble Beach. <a class="map" href="https://www.google.com/maps/search/?api=1&query=17-Mile+Drive+Pebble+Beach" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">2</div><div><h3>Santa Cruz Boardwalk + West Cliff Drive</h3><p>Lunch stop. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Santa+Cruz+Beach+Boardwalk" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">3</div><div><h3>Big Basin Redwoods State Park</h3><p>Coastal redwoods, short walks. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Big+Basin+Redwoods+State+Park" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">4</div><div><h3>Battery Spencer</h3><p>Your single Golden Gate Bridge viewpoint. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Battery+Spencer" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">5</div><div><h3>Sausalito + Dinner</h3><p>Waterfront stroll, then Mensho Tokyo SF. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Mensho+Tokyo+SF" target="_blank">Open map</a></p></div></div>
+      </div>
+    </details>
+
+    <details id="d8">
+      <summary><div><div class="day-title">Jul 4 · SF + Silicon Valley + Flight</div><div class="overnight">Flight: SFO → DFW, 11:50 PM</div></div><span class="badge">Tech Day</span></summary>
+      <div class="content"><div class="route">SF → Stanford → Apple Park → Google → SF/SFO</div>
+        <div class="stop"><div class="num">1</div><div><h3>Lombard Street</h3><p>Go early to avoid traffic. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Lombard+Street+San+Francisco" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">2</div><div><h3>Stanford University</h3><p>Palm Drive, Main Quad, Memorial Church, Hoover Tower. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Stanford+University+Palo+Alto" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">3</div><div><h3>Apple Park Visitor Center</h3><p>Cupertino tech stop. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Apple+Park+Visitor+Center" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">4</div><div><h3>Google Visitor Experience</h3><p>Mountain View tech stop. <a class="map" href="https://www.google.com/maps/search/?api=1&query=Google+Visitor+Experience+Mountain+View" target="_blank">Open map</a></p></div></div>
+        <div class="stop"><div class="num">5</div><div><h3>Optional SF Finish</h3><p>Palace of Fine Arts, Twin Peaks, or Pier 39 depending on energy.</p></div></div>
+        <div class="note">Aim to reach SFO by 7:00–7:30 PM because July 4 traffic can be unpredictable.</div>
+      </div>
+    </details>
+  </main>
+  <footer>Designed for mobile browser use · Save this file and open it on your phone.</footer>
+</body>
+</html>
